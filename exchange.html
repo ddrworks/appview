@@ -1,0 +1,782 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover">
+    <title>PayApp - Finance, Banking, Wallet, Crypto Mobile PWA</title>
+    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="static/css/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+
+    <link href="static/css/css2.css" rel="stylesheet">
+
+    <meta id="theme-check" name="theme-color" content="#FFFFFF">
+
+    <body class="theme-light">
+        <div id="preloader"><div class="spinner-border color-highlight" role="status"></div></div>
+
+        <div id="page">
+
+            <div id="footer-bar" class="footer-bar-1 footer-bar-detached">
+                <a href="javascript:freshdata();"><i class="bi bi-arrow-clockwise"></i><span>刷新</span></a>
+                <a href="index-okex.html"><i class="bi bi-graph-up"></i><span>okex</span></a>
+                <a href="index.html" class="circle-nav-2"><i class="bi bi-house-fill"></i><span>合约</span></a>
+                <a href="exchange2.html"><i class="bi bi-cloud-minus"></i><span>交易</span></a>
+                <a href="#"><i class="bi bi-receipt active-nav"></i><span>网格</span></a>
+            </div>
+
+            <div class="page-content footer-clear">
+
+                <div class="pt-3">
+                    <div class="page-title d-flex">
+                        <div class="align-self-center me-auto">
+                            <h1 class="color-theme">网格交易</h1>
+                        </div>
+                        <div class="align-self-center ms-auto">
+                            <a href="#" data-bs-toggle="dropdown" class="icon gradient-blue shadow-bg shadow-bg-s rounded-m">
+                                <img src="static/picture/25s.jpg" width="45" class="rounded-m" alt="img">
+                            </a>
+
+                            <div class="dropdown-menu">
+                                <div class="card card-style shadow-m mt-1 me-1">
+                                    <div class="list-group list-custom list-group-s list-group-flush rounded-xs px-3 py-1">
+                                        <a href="page-wallet.html" class="list-group-item">
+                                            <i class="has-bg gradient-green shadow-bg shadow-bg-xs color-white rounded-xs bi bi-credit-card"></i>
+                                            <strong class="font-13">Wallet</strong>
+                                        </a>
+                                        <a href="page-activity.html" class="list-group-item">
+                                            <i class="has-bg gradient-blue shadow-bg shadow-bg-xs color-white rounded-xs bi bi-graph-up"></i>
+                                            <strong class="font-13">Activity</strong>
+                                        </a>
+                                        <a href="page-profile.html" class="list-group-item">
+                                            <i class="has-bg gradient-yellow shadow-bg shadow-bg-xs color-white rounded-xs bi bi-person-circle"></i>
+                                            <strong class="font-13">Account</strong>
+                                        </a>
+                                        <a href="page-signin-1.html" class="list-group-item">
+                                            <i class="has-bg gradient-red shadow-bg shadow-bg-xs color-white rounded-xs bi bi-power"></i>
+                                            <strong class="font-13">Log Out</strong>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-style">
+                    <div class="form-custom form-label form-border form-icon px-3 pt-1">
+                        <i class="bi bi-calendar font-13"></i>
+                        <select class="form-select rounded-xs" id="coinselect">
+                            <option value="USDT-TUSD" selected="true">酷币-USDT/TUSD</option>
+                            <option value="USDT-DAI">酷币-USDT/DAI</option>
+                            <option value="BUSD-USDC">酷币-BUSD/USDC</option>
+                            <option value="BTC_USDT">GATE-BTC/USDT</option>
+                        </select>
+                    </div>
+
+                    <div class="card card-style bg-7 shadow-card shadow-card-m" style="height:190px;margin-bottom: 0px;">
+                        <div class="card-top p-3">
+                                <a href="javascript:showBalance();" class="icon icon-xxs bg-white color-black float-end"><i class="bi bi-three-dots font-18"></i></a>
+                            </div>
+                        <div class="card-center">
+                            <div class="px-3 py-2 rounded-end d-inline-block">
+                                <div>
+                                    <span class="font-monospace d-block mb-n2 opacity-60 color-yellow-light">USDT</span>
+                                    <span id="freeusdt" class="font-monospace color-white font-20 ms-2">--</span>
+                                </div>
+                                <div>
+                                    <span class="font-monospace d-block mb-n2 opacity-60 color-yellow-light" id='coinname'>BTC</span>
+                                    <span id="freecoin" class="font-monospace color-white font-20 ms-2">--</span>
+                                </div>
+                            </div>
+                        </div>
+                        <strong class="card-top no-click font-12 p-3 color-white font-monospace">账户</strong>
+                    </div>
+
+                    <div class="content mb-0">
+                        <div class="tabs tabs-pill" id="tab-group-2">
+                            <div class="tab-controls rounded-m p-1 overflow-visible">
+                                <a class="font-13 rounded-s py-1 shadow-bg shadow-bg-s" data-bs-toggle="collapse" href="#tab-44" aria-expanded="true">挂单</a>
+                                <a class="font-13 rounded-s py-1 shadow-bg shadow-bg-s" data-bs-toggle="collapse" href="#tab-5" aria-expanded="false">盘口</a>
+                                <a class="font-13 rounded-s py-1 shadow-bg shadow-bg-s" data-bs-toggle="collapse" href="#tab-33" aria-expanded="false">成交</a>
+                                <a class="font-13 rounded-m py-1 shadow-bg shadow-bg-s" data-bs-toggle="collapse" href="#tab-7" aria-expanded="false">命令</a>
+                                <a class="font-13 rounded-m py-1 shadow-bg shadow-bg-s" data-bs-toggle="collapse" href="#tab-8" aria-expanded="false">账户</a>
+
+                            </div>
+                            <div class="mt-3"></div>
+
+
+                            <div class="collapse" id="tab-33" data-bs-parent="#tab-group-2">
+                                <div id="tab-3" class="list-group list-custom list-group-m list-group-flush rounded-xs"></div>
+                            </div>
+
+                            <div class="collapse show" id="tab-44" data-bs-parent="#tab-group-2">
+                                 <div id="tab-4" class="list-group list-custom list-group-m list-group-flush rounded-xs"></div>
+                            </div>
+                            <div class="collapse" id="tab-8" data-bs-parent="#tab-group-2">
+                            </div>
+
+                            <div class="collapse" id="tab-5" data-bs-parent="#tab-group-2">
+                                <div class="content my-2">
+                                    <a href="javascript:fillPrice(true)"  class="d-flex ">
+                                        <div class="align-self-center">
+                                            <h5 class="pt-1 mb-n1 color-red-dark">卖出</h5>
+                                        </div>
+                                        <div class="align-self-center ms-auto text-end">
+                                            <h4 class="pt-1 mb-n1 color-red-dark" id='ask-id'>--</h4>
+                                        </div>
+                                    </a>
+                                    <div class="divider my-2 opacity-50"></div>
+                                    <a href="javascript:fillPrice(false)" class="d-flex">
+                                        <div class="align-self-center">
+                                            <h5 class="pt-1 mb-n1">买入</h5>
+                                        </div>
+                                        <div class="align-self-center ms-auto text-end">
+                                            <h4 class="pt-1 mb-n1" id='bid-id'>--</h4>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="content">
+                                    <div class="row">
+                                        <a href="#" data-bs-toggle="offcanvas" data-bs-target="#menu-order" class="btn btn-s btn-full gradient-green shadow-bg shadow-bg-xs">交易</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="collapse" id="tab-7" data-bs-parent="#tab-group-2">
+                                <div class="row">
+                                    <div class='col-10' style="padding-right: 0;">
+                                        <div class="form-custom form-label form-icon">
+                                            <i class="bi bi-currency-dollar font-13"></i>
+                                            <select class="form-select rounded-xs" id="c_cmd" onchange="cmdChanged()">
+                                            </select>
+                                            <!--<input type="text" class="form-control rounded-xs" id="c_cmd" placeholder="命令">-->
+                                            <label for="c_cmd" class="color-highlight">命令</label>
+                                        </div>
+                                    </div>
+                                    <div class='col-2'>
+                                        <a href="javascript:showHelp()" class="btn btn-full gradient-green rounded-s shadow-bg shadow-bg-xs">H</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-custom form-label form-icon mt-3">
+                                    <i class="bi bi-pencil-fill font-13"></i>
+                                    <select class="form-select rounded-xs" id="c_method">
+                                    </select>
+                                    <label for="c_method" class="color-highlight">方法</label>
+                                </div>
+                                <div class="pb-2"></div>
+                                <div class="form-custom form-label form-icon">
+                                    <i class="bi bi-code-square font-14"></i>
+                                    <input type="text" class="form-control rounded-xs" id="c_para" placeholder="参数">
+                                    <label for="c_para" class="color-highlight">参数</label>
+                                </div>
+                                <a href="javascript:runCmd()" class="btn btn-full gradient-highlight rounded-s shadow-bg shadow-bg-xs mt-3 mb-3">确定</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="menu-order" class="offcanvas offcanvas-bottom offcanvas-detached rounded-m">
+                <div class="menu-size" style="height:320px;">
+                    <div class="content mt-0">
+                        <div class="pb-3"></div>
+                        <div class="form-custom form-label form-icon">
+                            <i class="bi bi-currency-dollar font-14"></i>
+                            <input type="number" class="form-control rounded-xs" id="c_price" placeholder="交易价格">
+                            <label for="c_price" class="color-highlight">价格</label>
+                        </div>
+                        <div class="pb-2"></div>
+                        <div class="form-custom form-label form-icon">
+                            <i class="bi bi-code-square font-14"></i>
+                            <input type="number" class="form-control rounded-xs" id="c_num" placeholder="交易数量">
+                            <label for="c_num" class="color-highlight">数量</label>
+                            <span>(required)</span>
+                        </div>
+                        <div class="pb-2"></div>
+                        <div class="form-custom form-label form-icon mt-3">
+                            <i class="bi bi-pencil-fill font-13"></i>
+                            <select class="form-select rounded-xs" id="c_side">
+                                <option value="buy" disabled="" selected="">下单方向</option>
+                                <option value="buy">买入</option>
+                                <option value="sell">卖出</option>
+                            </select>
+                            <label for="c_side" class="color-highlight">方向</label>
+                        </div>
+                    </div>
+                    <a  href="javascript:void(0);" onclick="hidderAndRun(this,placeOrder)" class="mx-3 btn btn-full gradient-green shadow-bg shadow-bg-s mb-4">确定</a>
+                </div>
+            </div>
+
+
+            <div id="menu-bill" class="offcanvas offcanvas-bottom offcanvas-detached rounded-m">
+                <div class="menu-size" style="height:470px;">
+                    <div class="d-flex mx-3 mt-3 py-1">
+                        <div class="align-self-center">
+                            <h1 class="mb-0">Order Detail</h1>
+                        </div>
+                        <div class="align-self-center ms-auto">
+                            <a href="#" class="ps-4 shadow-0 me-n2" data-bs-dismiss="offcanvas">
+                                <i class="bi bi-x color-red-dark font-26 line-height-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="divider divider-margins mt-3 mb-2"></div>
+                    <div class="content mt-0">
+                        <div class="d-flex">
+                            <h5 class="mb-0 font-600 font-14">ID</h5>
+                            <h5 class="mb-0 ms-auto font-600 font-14" id='menu-bill-id'></h5>
+                        </div>
+                        <div class="divider my-2"></div>
+                        <div class="d-flex">
+                            <h5 class="mb-0 font-600 font-14">价格</h5>
+                            <h5 class="mb-0 ms-auto font-600 font-14" id='menu-bill-price'></h5>
+                        </div>
+                        <div class="divider my-2"></div>
+                        <div class="d-flex">
+                            <h5 class="mb-0 font-600 font-14">数量</h5>
+                            <h5 class="mb-0 ms-auto font-600 font-14" id='menu-bill-size'></h5>
+                        </div>
+                        <div class="divider my-2"></div>
+                        <div class="d-flex">
+                            <h5 class="mb-0 font-600 font-14">方向</h5>
+                            <h5 class="mb-0 ms-auto font-700 font-14" id='menu-bill-type'></h5>
+                        </div>
+                        <div class="divider my-2"></div>
+                        <div class="d-flex">
+                            <h5 class="mb-0 font-600 font-14">时间</h5>
+                            <h5 class="mb-0 ms-auto font-700 font-14" id='menu-bill-time'></h5>
+                        </div>
+                        <div class="divider my-2"></div>
+                        <div class="d-flex">
+                            <h5 class="mb-0 font-600 font-14">设置买入</h5>
+                            <h5 class="mb-0 ms-auto font-700 font-14" id='menu-bill-fixbuy'></h5>
+                        </div>
+                        <div class="divider my-2"></div>
+                        <div class="d-flex">
+                            <h5 class="mb-0 font-600 font-14">设置卖出</h5>
+                            <h5 class="mb-0 ms-auto font-700 font-14" id='menu-bill-fixsell'></h5>
+                        </div>
+                        <div class="divider my-2"></div>
+                        <div class="d-flex">
+                            <h5 class="mb-0 font-600 font-14">位置</h5>
+                            <h5 class="mb-0 ms-auto font-700 font-14" id='menu-bill-fixpos'></h5>
+                        </div>
+                        <div class="divider my-2"></div>
+                        <div class='row'>
+                            <div class="col-6">
+                                <a href="#" data-bs-dismiss="offcanvas" class="btn btn-s btn-full gradient-blue shadow-bg shadow-bg-xs">返回</a>
+                            </div>
+                            <div class="col-6">
+                                <a href="javascript:void(0);" onclick="hidderAndRun(this,cancelOrder)"  class="btn btn-s btn-full gradient-orange shadow-bg shadow-bg-xs">取消</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+
+            <div id="menu-bill1" class="offcanvas offcanvas-bottom offcanvas-detached rounded-m">
+                <div class="menu-size" style="height:360px;">
+                    <div class="d-flex mx-3 mt-3 py-1">
+                        <div class="align-self-center">
+                            <h1 class="mb-0">Order Detail</h1>
+                        </div>
+                        <div class="align-self-center ms-auto">
+                            <a href="#" class="ps-4 shadow-0 me-n2" data-bs-dismiss="offcanvas">
+                                <i class="bi bi-x color-red-dark font-26 line-height-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="divider divider-margins mt-3 mb-2"></div>
+                    <div class="content mt-0">
+                        <div class="d-flex">
+                            <h5 class="mb-0 font-600 font-14">ID</h5>
+                            <h5 class="mb-0 ms-auto font-600 font-14" id='menu-bill-id1'></h5>
+                        </div>
+                        <div class="divider my-2"></div>
+                        <div class="d-flex">
+                            <h5 class="mb-0 font-600 font-14">价格</h5>
+                            <h5 class="mb-0 ms-auto font-600 font-14" id='menu-bill-price1'></h5>
+                        </div>
+                        <div class="divider my-2"></div>
+                        <div class="d-flex">
+                            <h5 class="mb-0 font-600 font-14">数量</h5>
+                            <h5 class="mb-0 ms-auto font-600 font-14" id='menu-bill-size1'></h5>
+                        </div>
+                        <div class="divider my-2"></div>
+                        <div class="d-flex">
+                            <h5 class="mb-0 font-600 font-14">方向</h5>
+                            <h5 class="mb-0 ms-auto font-700 font-14" id='menu-bill-type1'></h5>
+                        </div>
+                        <div class="divider my-2"></div>
+                        <div class="d-flex">
+                            <h5 class="mb-0 font-600 font-14">时间</h5>
+                            <h5 class="mb-0 ms-auto font-700 font-14" id='menu-bill-time1'></h5>
+                        </div>
+                        <div class="divider my-2"></div>
+                        <a href="#" data-bs-dismiss="offcanvas" class="btn btn-s btn-full gradient-blue shadow-bg shadow-bg-xs">返回</a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <script type="text/html" id="onerow">
+            <i class="has-bg gradient-gray color-white rounded-xs">{{index}}</i>
+            <div><strong class='color-{{color}}-light'>${{price}}</strong><span>{{times}}</span></div>
+            <span class="badge bg-transparent text-end font-15 color-{{color}}-light">
+                {{size}}<br>
+                <em class="fst-normal font-11 color-{{color}}-light">{{type}}</em>
+            </span>
+            <!-- <div class="align-self-center">
+                <h5 class="pt-1 mb-n1 color-{{color}}-light">${{price}}</h5>
+                <p class="mb-0 font-11 opacity-70">{{times}}</p>
+            </div>
+            <div class="align-self-center ms-auto text-end">
+                <h4 class="pt-1 mb-n1 color-{{color}}-light">{{size}}</h4>
+                <p class="mb-0 font-11 color-{{color}}-light">{{type}}</p>
+            </div> -->
+        </script>
+
+        <script type="text/html" id="tbrow">
+            <div class="d-flex ">
+                <div class="align-self-center">
+                    <h5 class="pt-1 mb-n1 color-red-dark">{{name}}</h5>
+                </div>
+                <div class="align-self-center ms-auto text-end">
+                    <h4 class="pt-1 mb-n1">{{value}}</h4>
+                </div>
+            </div>
+        </script>
+
+        <script type="text/html" id="accountrow">
+            <div class="align-self-center">
+                <h5 class="pt-1 mb-n1 color-{{color}}-light">${{currency}}</h5>
+                <p class="mb-0 font-11 opacity-70">{{holds}}</p>
+            </div>
+            <div class="align-self-center ms-auto text-end">
+                <h4 class="pt-1 mb-n1 color-{{color}}-light">{{balance}}</h4>
+                <p class="mb-0 font-11 color-{{color}}-light">{{available}}</p>
+            </div>
+        </script>
+
+        <script src="static/js/bootstrap.min.js"></script>
+        <script src="static/js/custom.js"></script>
+        <script src="static/js/common.js"></script>
+        <script>
+            function createOneRow(id,obj){
+                var one = creatNode('a','list-group-item');
+                one.setAttribute('href','#');
+                one.setAttribute('data-bs-toggle','offcanvas');
+                one.setAttribute('data-bs-target','#menu-bill'+id);
+                one.innerHTML= templateChange('onerow',obj);
+                one.onclick = function(){  
+                    document.getElementById('menu-bill-id'+id).innerHTML = obj.id;
+                    document.getElementById('menu-bill-price'+id).innerHTML = obj.price;
+                    document.getElementById('menu-bill-size'+id).innerHTML = obj.size;
+                    document.getElementById('menu-bill-type'+id).innerHTML = obj.type;
+                    document.getElementById('menu-bill-time'+id).innerHTML = obj.times;
+                    if(obj.fixbuy){
+                        document.getElementById('menu-bill-fixbuy'+id).innerHTML = obj.fixbuy;
+                    }
+                    if(obj.fixsell){
+                        document.getElementById('menu-bill-fixsell'+id).innerHTML = obj.fixsell;
+                    }
+                    if(obj.fixpos){
+                        document.getElementById('menu-bill-fixpos'+id).innerHTML = obj.fixpos;
+                    }                };
+                return one;
+            };
+
+
+            function fillPrice(sell) {
+                if(sell){
+                    document.getElementById('c_price').value = document.getElementById('ask-id').innerHTML;
+                }else
+                {
+                    document.getElementById('c_price').value = document.getElementById('bid-id').innerHTML;
+                }
+            };
+
+
+            function cancelOrder() {
+              var id = document.getElementById('menu-bill-id').innerHTML;
+              var pos = document.getElementById('coinselect').value;
+              var coin = getCoin();
+              var url = creatExecuteUrl(getClientName(),'cancelOrderByorderId',[coin,id]);
+              sendFixCmd(url,function(res){
+                alert(res);
+             });
+            };
+
+
+            function showBalance(){
+                var pos = document.getElementById('coinselect').value;
+                var coin = getCoin();
+                if(isGate()){
+                    var url = creatExecuteUrl(getClientName(),'getSpotAccount',[coin]);
+                    sendFixCmd(url,function(res){
+                        var data = eval("("+res+")").data;
+                        if(isUSDC()){
+                            document.getElementById('coinname').innerHTML= 'USDC';
+                            document.getElementById('freecoin').innerHTML = "$"+(data.freeCoinAccount+data.lockCoinAccount);
+                            document.getElementById('freeusdt').innerHTML = "$"+(data.freeUsdtAccount+data.lockUsdtAccount);           
+                        }else{
+                            document.getElementById('coinname').innerHTML= 'USD';
+                            document.getElementById('freeusdt').innerHTML = "$"+(data.freeCoinAccount+data.lockCoinAccount);
+                            document.getElementById('freecoin').innerHTML = "$"+(data.freeUsdtAccount+data.lockUsdtAccount);                        
+                        }
+                    });
+                }else{
+                    var url = creatExecuteUrl(getClientName(),'account',['null']);
+                    sendFixCmd(url,function(res){
+                        var data = eval("("+res+")").data;
+                        var index = document.getElementById('coinselect').selectedIndex;
+                        for(x in data){
+                            if((index ==0 && data[x].currency=='TUSD') || (index ==1 && data[x].currency=='DAI')){
+                                document.getElementById('coinname').innerHTML= data[x].currency;
+                                document.getElementById('freecoin').innerHTML = data[x].balance;
+                            }else if(data[x].currency=='USDT' && data[x].type=='trade'){
+                                document.getElementById('freeusdt').innerHTML = "$"+data[x].balance;
+                            }
+                        }
+                    });
+                }
+                
+            };
+
+
+            function placeOrder() {
+                var price = document.getElementById('c_price').value;
+                var num = document.getElementById('c_num').value;
+                if(num == ''){
+                    alert('请输入数量');
+                    return;
+                }
+                var side = document.getElementById('c_side').value;
+                var res = confirm('确认'+side+' '+num);
+                if(res){
+                   var coin = getCoin();
+                   var pos = document.getElementById('coinselect').value;
+                   var clientname=getClientName();
+                   var url=creatExecuteUrl(clientname,'placeOrder',[price,num,side == 'buy'?'true':'false',coin,'false']);
+                   sendFixCmd(url,function(res){
+                     alert(res);
+                   });
+                }
+            };
+
+            function sendFixCmd(cmd, fun){
+                var type = 'fix';
+                var res = window.android.send(type,cmd);
+                fun(res);
+            };
+
+
+            function isGate(){
+                //var index = document.getElementById('coinselect').selectedIndex;
+                // return index == 4 || index == 5;
+                return getCoin()=='BTC_USDT';
+            };
+
+
+            function isUSDC(){
+                return "USDC_USDT" == getCoin();
+            }
+
+
+            function getClientName(){
+                if(isGate()){
+                    return 'gateclient';
+                }
+                return 'kucoinclient';
+            };
+
+            function getMethod(){
+                if(isGate()){
+                    return 'getAllOpenOrders';
+                }
+                return 'queryOpenOrders';
+            };
+
+
+            function getCoin(){
+                return document.getElementById('coinselect').value;
+            };
+
+
+            function freshAskbid() {
+                var url = creatExecuteUrl(getClientName(),'getAskBid',[getCoin()]);
+                sendFixCmd(url,function(res){
+                    var data = eval("("+res+")").data;
+                    document.getElementById('ask-id').innerHTML = data.ask;
+                    document.getElementById('bid-id').innerHTML = data.bid;
+                });
+            };
+
+
+            function nodeIsShow(id){
+                return document.getElementById(id).classList.contains('show');
+            };
+
+            function freshdata(){
+                if(nodeIsShow('tab-44')){
+                    freshTable();
+                    // test();
+                }else{
+                    if(nodeIsShow('tab-33')){
+                        freshHis();
+                    }else{
+                        if(nodeIsShow('tab-8')){
+                            freshAccount();
+                        }else{
+                            freshAskbid();
+                        }
+                        
+                    }
+                }
+            };
+
+
+            function test(){
+                var dd = {'data':[[{'side':'buy','time':'12345678965','price':'1234333','size':'0.0001','id':'100'}],
+                    {'data':[['100','1','1','2','200']]}]};
+                showOpenOrders(JSON.stringify(dd));
+            };
+
+            function showHelp(){
+               var cmdName = document.getElementById('c_cmd').value;
+               var url=creatExecuteUrl('cmdcenter','getCmdDesc',[cmdName]);
+               var selNode = document.getElementById('c_method');
+               var len = selNode.options;
+               while(selNode.options.length>0){
+                  selNode.options.remove(selNode.options.length-1);
+               }
+               sendFixCmd(url,function(res){
+                    var data = eval("("+res+")").data;
+                    for(x in data){
+                       selNode.options.add(new Option(x.desc+'('+x.para+')',x.name));
+                    }
+                });
+            };
+
+            var allCmd=null;
+
+            function cmdChanged(){
+                var cmdNode = document.getElementById('c_cmd');
+                var index = cmdNode.selectedIndex
+                showIndexhelp(index);
+            };
+
+            function showIndexhelp(index){
+                var data = allCmd[index].methods;
+                var selNode = document.getElementById('c_method');
+                var len = selNode.options;
+                while(selNode.options.length>0){
+                  selNode.options.remove(selNode.options.length-1);
+                }
+                for(x in data){
+                   selNode.options.add(new Option(data[x].desc+'('+data[x].para+')',data[x].name));
+                }
+            };
+
+            function showHelp(){
+               var cmdNode = document.getElementById('c_cmd');
+               var len = cmdNode.options;
+               while(cmdNode.options.length>0){
+                  cmdNode.options.remove(cmdNode.options.length-1);
+               }
+               var url=creatExecuteUrl('cmdcenter','getAllCmdHelp');
+               sendFixCmd(url,function(res){
+                    allCmd = eval("("+res+")").data;
+                    var size = allCmd.length;
+                    for(var i = 0;i<size;i++){
+                       cmdNode.options.add(new Option(allCmd[i].desc,allCmd[i].name));
+                    }
+                    showIndexhelp(0);
+                });
+            };
+
+
+            function runCmd(){
+                var cmdName = document.getElementById('c_cmd').value;
+                var method = document.getElementById('c_method').value;
+                var para = document.getElementById('c_para').value;
+                var url=creatExecuteUrl(cmdName,method,para.split(','));
+                sendFixCmd(url,function(res){
+                    alert(res);
+                });
+            };
+
+            function freshHis(){
+                var url = creatExecuteUrl(getClientName(),isGate()?'queryHisOrders':'queryHisOrder',[getCoin()]);
+                sendFixCmd(url,showHisOrders);
+            };
+
+
+            function freshAccount(){
+                if(isGate()){
+                    var url = creatExecuteUrl(getClientName(),'account',[]);
+                    sendFixCmd(url,showGateAccount);
+                    // var res = '{"data":[{"currency":"USD","available":"2.634824363451","locked":"300.12"},{"currency":"USDT","available":"2215.318485990062","locked":"699.76"},{"currency":"USDC","available":"0.256930352636","locked":"0"},{"currency":"POINT","available":"4.696162324082","locked":"0"},{"currency":"GT","available":"1.649086686064","locked":"0"}]}';
+                    // showGateAccount(res);
+                }else{
+                    var url = creatExecuteUrl(getClientName(),'account',['null']);
+                    sendFixCmd(url,showAccount);
+                }
+                
+            };
+
+            function freshTable(){
+                var coin = getCoin();
+                var first = creatExecuteData(getClientName(),getMethod(),[coin]);
+                var coinid;
+                if(coin=='USDT-TUSD'){
+                    coinid='KUCOIN-USDT-TUSD';
+                }else if(coin =='USDT-DAI'){
+                    coinid='KUCOIN-USDT-DAI';
+                }else if(coin=='BTC_USDT'){
+                    coinid='GATE-BTC-USDT';
+                }else{
+                    coinid='KUCOIN-BSUD-USDC';
+                }
+                var second = creatExecuteData('dao','runsql',['select b.id,a.pos,a.buyprice,a.sellprice,a.size from fixtable a left join fixorder b on a.coinid=b.coinid and a.pos=b.pos where a.coinid="'+coinid+'"']);
+                var url = createMutiUrl(first,second);
+                sendFixCmd(url,showOpenOrders);
+            };
+
+            function showOpenOrders(res){
+                showpos(res,'tab-4');
+            };
+
+            function showHisOrders(res){
+                showpos(res,'tab-3');
+            };
+
+            function showpos(res,id){
+                var node = document.getElementById(id);
+                var isHis = id=='tab-3';
+                var pp = isHis ? '1':'';
+                node.innerHTML = '';
+                function addrow(obj){
+                    node.appendChild(createOneRow(pp,obj));
+                };
+
+                var temp = eval("("+res+")").data;
+                var data;
+                var map = new Map();
+                if(id== 'tab-3'){
+                    data = temp;
+                }else{
+                    data = temp[0].data;
+                    var cd = temp[1].data.data;
+                    for(x in cd){
+                        var onedata = cd[x];
+                        map.set(onedata[0],onedata);
+                    }
+                }
+                
+                var index = 1;
+                for(x in data){
+                    var onedata = data[x];
+                    onedata.index= index;
+                    index++;
+                    if(onedata.time){
+                        onedata.times = timeFormat(onedata.time);
+                    }else{
+                        onedata.times = timeFormat(onedata.createdAt);
+                    }
+                    if(onedata.side.toLowerCase() == 'buy'){
+                        onedata.type = '买入';
+                        onedata.color = 'blue';
+                    }else{
+                        onedata.type = '卖出';
+                        onedata.color = 'red';
+                    }
+                    if(onedata.fee){
+                        onedata.type = onedata.type+'/'+onedata.fee.toFixed(8);
+                        if(!isHis){
+                            onedata.size = onedata.size+'('+onedata.dealSize+')';
+                        }
+
+                    }
+                    var fixd = map.get(onedata.id);
+                    if(fixd){
+                        onedata.fixpos = fixd[1];
+                        onedata.fixbuy = fixd[2];
+                        onedata.fixsell = fixd[3];
+                        onedata.fixsize = fixd[4];
+                    }
+                    addrow(onedata);
+                }
+            };
+
+
+            function showAccount(res){
+                var node = document.getElementById('tab-8');
+                node.innerHTML = '';
+                function addSep(){
+                    node.appendChild(creatNode('div','divider my-2 opacity-50'));
+                };
+                function addrow(obj){
+                    var one = creatNode('a','d-flex py-1 mb-2');
+                    one.setAttribute('href','#');
+                    one.innerHTML= templateChange('accountrow',obj);
+                    node.appendChild(one);
+                };
+
+                var data = eval("("+res+")").data;
+                var has = true;
+                for(x in data){
+                    var onedata = data[x];
+                    if(onedata.type!='trade'){
+                        continue;
+                    }
+                    onedata.holds = onedata.holds.toFixed(4);
+                    if(has == true){
+                        has = false;
+                    }else{
+                        addSep();
+                    }
+                    addrow(onedata);
+                }
+            };
+
+            function showGateAccount(res){
+                var node = document.getElementById('tab-8');
+                node.innerHTML = '';
+                function addSep(){
+                    node.appendChild(creatNode('div','divider my-2 opacity-50'));
+                };
+                function addrow(obj){
+                    var one = creatNode('a','d-flex py-1 mb-2');
+                    one.setAttribute('href','#');
+                    one.innerHTML= templateChange('accountrow',obj);
+                    node.appendChild(one);
+                };
+
+                var data = eval("("+res+")").data;
+                var has = true;
+                for(x in data){
+                    var onedata = data[x];
+                    onedata.holds = parseFloat(onedata.locked).toFixed(4);
+                    onedata.balance = (parseFloat(onedata.available) + parseFloat(onedata.locked)).toFixed(8);
+                    if(has == true){
+                        has = false;
+                    }else{
+                        addSep();
+                    }
+                    addrow(onedata);
+                }
+            };
+        </script>
+    </body>
+</head>
+</html>
+
