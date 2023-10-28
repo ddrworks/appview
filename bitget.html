@@ -1,0 +1,567 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover">
+		<title>PayApp - Finance, Banking, Wallet, Crypto Mobile PWA</title>
+		<link rel="stylesheet" type="text/css" href="static/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="static/css/bootstrap-icons.css">
+		<link rel="stylesheet" type="text/css" href="static/css/style.css">
+
+		<link href="static/css/css2.css" rel="stylesheet">
+
+		<meta id="theme-check" name="theme-color" content="#FFFFFF">
+	</head>
+	<body class="theme-light">
+		<div id="preloader"><div class="spinner-border color-highlight" role="status"></div></div>
+
+		<div id="page">
+			<div id="footer-bar" class="footer-bar-1 footer-bar-detached">
+				<a href="javascript:freshdata();"><i class="bi bi-arrow-clockwise"></i><span>刷新</span></a>
+				<a href="mx.html"><i class="bi bi-graph-up"></i><span>mx</span></a>
+				<a href="bitget.html" class="circle-nav-2"><i class="bi bi-house-fill"></i><span>BG</span></a>
+				<a href="biance.html"><i class="bi bi-cloud-minus"></i><span>币安</span></a>
+				<a href="exchange.html"><i class="bi bi-receipt"></i><span>网格</span></a>
+			</div>
+
+			<div class="page-content footer-clear">
+				<div class="pt-3">
+					<div class="page-title d-flex">
+						<div class="align-self-center me-auto">
+							<p class="color-highlight header-date"></p>
+							<h1>Biance高频合约</h1>
+						</div>
+						<div class="align-self-center ms-auto">
+							<a href="#" data-bs-toggle="dropdown" class="icon gradient-blue shadow-bg shadow-bg-s rounded-m">
+								<img src="static/picture/8s.jpg" width="45" class="rounded-m" alt="img">
+							</a>
+
+							<div class="dropdown-menu">
+								<div class="card card-style shadow-m mt-1 me-1">
+									<div class="list-group list-custom list-group-s list-group-flush rounded-xs px-3 py-1">
+										<a href="page-wallet.html" class="list-group-item">
+											<i class="has-bg gradient-green shadow-bg shadow-bg-xs color-white rounded-xs bi bi-credit-card"></i>
+											<strong class="font-13">Wallet</strong>
+										</a>
+										<a href="page-activity.html" class="list-group-item">
+											<i class="has-bg gradient-blue shadow-bg shadow-bg-xs color-white rounded-xs bi bi-graph-up"></i>
+											<strong class="font-13">Activity</strong>
+										</a>
+										<a href="page-profile.html" class="list-group-item">
+											<i class="has-bg gradient-yellow shadow-bg shadow-bg-xs color-white rounded-xs bi bi-person-circle"></i>
+											<strong class="font-13">Account</strong>
+										</a>
+										<a href="page-signin-1.html" class="list-group-item">
+											<i class="has-bg gradient-red shadow-bg shadow-bg-xs color-white rounded-xs bi bi-power"></i>
+											<strong class="font-13">Log Out</strong>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+               	<div class="card card-style bg-7 shadow-card shadow-card-m" style="height:190px">
+					<div class="card-center">
+						<div class="px-3 py-2 rounded-end d-inline-block">
+							<div>
+								<span class="font-monospace d-block mb-n2 opacity-60 color-yellow-light">Gate</span>
+								<span id="gateusdt" class="font-monospace color-white font-20 ms-2">--</span>
+							</div>
+							<div>
+								<span class="font-monospace d-block mb-n2 opacity-60 color-yellow-light">币安</span>
+								<span id="bianusdt" class="font-monospace color-white font-20 ms-2">--</span>
+							</div>
+						</div>
+					</div>
+					<strong class="card-top no-click font-12 p-3 color-white font-monospace">账户</strong>
+					<div class="card-overlay bg-black opacity-50"></div>
+				</div>
+
+
+				<div class="content">
+					<div class="row">
+						<div class="col-6">
+							<a href="#" onclick="openAdd()" class="btn btn-full gradient-highlight rounded-s shadow-bg shadow-bg-s">添加</a>
+						</div>
+						<div class="col-6">
+							<a href="#" data-bs-toggle="offcanvas" data-bs-target="#cmd-dialog" class="btn btn-full gradient-green rounded-s shadow-bg shadow-bg-s">命令</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="card card-style my-2">
+					<div class="content">
+						<div class="tabs tabs-pill" id="tab-group-2">
+							<div class="tab-controls rounded-m p-1 overflow-visible">
+								<a class="font-13 rounded-m shadow-bg shadow-bg-s" data-bs-toggle="collapse" href="#tab-4" aria-expanded="true">交易对</a>
+								<a class="font-13 rounded-m shadow-bg shadow-bg-s" data-bs-toggle="collapse" href="#tab-5" aria-expanded="false">仓位</a>
+								<a class="font-13 rounded-m shadow-bg shadow-bg-s" data-bs-toggle="collapse" href="#tab-7" aria-expanded="false">账户</a>
+								<a class="font-13 rounded-m shadow-bg shadow-bg-s" data-bs-toggle="collapse" href="#tab-8" aria-expanded="false">命令</a>
+							</div>
+							<div class="mt-3"></div>
+							<div class="collapse show" id="tab-4" data-bs-parent="#tab-group-2">
+							</div>
+							<div class="collapse" id="tab-6" data-bs-parent="#tab-group-2">
+							</div>
+							<div class="collapse" id="tab-5" data-bs-parent="#tab-group-2">
+							</div>
+							<div class="collapse" id="tab-7" data-bs-parent="#tab-group-2">
+							</div>
+							<div class="collapse" id="tab-8" data-bs-parent="#tab-group-2">
+                                <div class="row">
+                                    <div class='col-10' style="padding-right: 0;">
+                                        <div class="form-custom form-label form-icon">
+                                            <i class="bi bi-currency-dollar font-13"></i>
+                                            <select class="form-select rounded-xs" id="c_cmd" onchange="cmdChanged()">
+                                            </select>
+                                            <!--<input type="text" class="form-control rounded-xs" id="c_cmd" placeholder="命令">-->
+                                            <label for="c_cmd" class="color-highlight">命令</label>
+                                        </div>
+                                    </div>
+                                    <div class='col-2'>
+                                        <a href="javascript:showHelp()" class="btn btn-full gradient-green rounded-s shadow-bg shadow-bg-xs">H</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-custom form-label form-icon mt-3">
+                                    <i class="bi bi-pencil-fill font-13"></i>
+                                    <select class="form-select rounded-xs" id="c_method">
+                                    </select>
+                                    <label for="c_method" class="color-highlight">方法</label>
+                                </div>
+                                <div class="pb-2"></div>
+                                <div class="form-custom form-label form-icon">
+                                    <i class="bi bi-code-square font-14"></i>
+                                    <input type="text" class="form-control rounded-xs" id="c_para" placeholder="参数">
+                                    <label for="c_para" class="color-highlight">参数</label>
+                                </div>
+                                <a href="javascript:runCmd()" class="btn btn-full gradient-highlight rounded-s shadow-bg shadow-bg-xs mt-3 mb-3">确定</a>
+                            </div>
+                        </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="modify_dialog" class="offcanvas offcanvas-bottom offcanvas-detached rounded-m">
+			<div class="menu-size" style="height:480px;">
+				<div class="content">
+					<div class="row">
+						<div class="form-custom form-label form-icon">
+							<i class="bi bi-clipboard font-14"></i>
+							<input type="text" class="form-control rounded-xs" id="modify_trade-name">
+							<label for="modify_trade-name" class="form-label-always-active color-highlight font-11">交易对名称</label>
+						</div>
+						<div class="pb-2"></div>
+						<div class="form-custom form-label form-icon">
+							<i class="bi bi-bookshelf font-14"></i>
+							<input type="number" class="form-control rounded-xs" id="modify_trade-open">
+							<label for="modify_trade-open" class="form-label-always-active color-highlight font-11">开仓浮动</label>
+						</div>
+						<div class="pb-2"></div>
+						<div class="form-custom form-label form-icon">
+							<i class="bi bi-tv font-14"></i>
+							<input type="number" class="form-control rounded-xs" id="modify_trade-close">
+							<label for="modify_trade-close" class="form-label-always-active color-highlight font-11">平仓浮动</label>
+						</div>
+						<div class="pb-2"></div>
+						<div class="form-custom form-label form-icon">
+							<i class="bi bi-suit-club font-14"></i>
+							<input type="number" class="form-control rounded-xs" id="modify_trade-stop">
+							<label for="modify_trade-stop" class="form-label-always-active color-highlight font-11">止损浮动</label>
+						</div>
+						<div class="pb-2"></div>
+						<div class="form-custom form-label form-icon">
+							<i class="bi bi-tag font-14"></i>
+							<input type="number" class="form-control rounded-xs" id="modify_trade-size">
+							<label for="modify_trade-size" class="form-label-always-active color-highlight font-11">数量</label>
+						</div>
+						<div class="pb-2"></div>
+						<div class="form-custom form-label form-icon">
+							<i class="bi bi-tree font-14"></i>
+							<input type="number" class="form-control rounded-xs" id="modify_trade-level">
+							<label for="modify_trade-level" class="form-label-always-active color-highlight font-11">杠杆</label>
+						</div>
+						<div class="row">
+							<div class="col-6">
+								<a href="javascript:void(0);" id='modify_button' class="btn btn-s btn-full gradient-blue shadow-bg shadow-bg-xs">确定</a>
+							</div>
+							<div class="col-6">
+								<a href="#" data-bs-dismiss="offcanvas" class="btn btn-s btn-full gradient-green shadow-bg shadow-bg-xs">返回</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="static/js/bootstrap.min.js"></script>
+		<script src="static/js/custom3.js"></script>
+		<script src="static/js/common.js"></script>
+		<script type="text/html" id="newonerow">
+			<div class="content mt-1 mb-0">
+				<div class='d-flex'>
+					<div class="align-self-center">
+						<img src="static/picture/{{img}}.png" onerror="this.src = 'static/picture/btc.png'" width="45" class="rounded-m" alt="img">
+					</div>
+					<div class="align-self-center ms-auto text-end">
+						<h5 class="pt-1 mb-n1 color-{{color}}-dark">{{coin}}</h5>
+						<p class="mb-0 font-11 opacity-70 color-{{color}}-dark">{{newstatus}}</p>
+					</div>
+				</div>
+				<div class="row" style="--bs-gutter-x:2rem;">
+					<div class="col d-grid text-center">
+						<strong class="color-theme">开仓/平仓数量</strong>
+						<span>{{openorder}}</span>
+						<span>{{closeorder}}</span>
+					</div>
+					<div class="col d-grid text-center">
+						<strong class="color-theme">开仓/平仓浮动</strong>
+						<span>{{first}}</span>
+						<span>{{close}}</span>
+					</div>
+					<div class="col d-grid text-center">
+						<strong class="color-theme">数量/止损</strong>
+						<span>{{size}}</span>
+						<span>{{stop}}</span>
+					</div>
+				</div>
+				<div class="row text-center bg-light" style="--bs-gutter-x:2rem;">
+					{{buttons}}
+				</div>
+			</div>
+		</script>
+
+		<script type="text/html" id="runbutton">
+			<div class="col border-end">
+				<a href="javascript:void(0);" onclick="removeTask('{{symbol}}')" class='text-black'>下线</a>
+			</div>
+			<div class="col border-end">
+				<a href="javascript:void(0);" onclick="stopOpen('{{symbol}}')" class='text-black'>停止开仓</a>
+			</div>
+			<div class="col bg-light">
+				<a href="javascript:void(0);"  onclick="freshClose('{{symbol}}') "class='text-black'>更新平仓</a>
+			</div>
+		</script>
+		<script type="text/html" id="stopbutton">
+			<div class="col border-end">
+				<a href="javascript:void(0);" onclick="removeTask('{{symbol}}')" class='text-black'>下线</a>
+			</div>
+			<div class="col border-end">
+				<a href="javascript:void(0);" onclick="startOpen('{{symbol}}')" class='text-black'>启动开仓</a>
+			</div>
+			<div class="col">
+				<a href="javascript:void(0);" onclick="freshClose('{{symbol}}')" class='text-black'>更新平仓</a>
+			</div>
+		</script>
+		<script type="text/html" id="addbutton">
+			<div class="col border-end">
+				<a href="javascript:void(0);" onclick="addOnetask('{{coin}}')" class='text-black'>上线</a>
+			</div>
+		</script>
+        <script>
+
+
+        	function openAdd(){
+                setNodeValue('modify_trade-name','',false);
+                setNodeValue('modify_trade-open','',false,'开仓浮动');   
+                setNodeValue('modify_trade-close','',false,'平仓浮动');   
+                setNodeValue('modify_trade-stop','',false,'止损浮动');   
+                setNodeValue('modify_trade-size','',false,'数量'); 
+                setNodeValue('modify_trade-level','',false,'杠杆');
+                document.getElementById('modify_button').onclick= function(){
+                	addAction();
+                	hidderDialog('modify_dialog');
+                };
+                showDialog('modify_dialog');  
+        	};
+
+           function stopOpen(symbol){
+				event.stopPropagation();
+		        var url=creatExecuteUrl(getCmdName(),'stopOpen',[symbol]);
+                sendFixCmd(url,function(res){
+                    alert(res);
+                });
+           };
+
+           function startOpen(symbol){
+				event.stopPropagation();
+		        var url=creatExecuteUrl(getCmdName(),'startOpen',[symbol]);
+                sendFixCmd(url,function(res){
+                    alert(res);
+                });
+           };
+
+           function freshClose(symbol){
+				event.stopPropagation();
+				var url=creatExecuteUrl(getCmdName(),'freshClose',[symbol]);
+                sendFixCmd(url,function(res){
+                    alert(res);
+                });
+           };
+
+           function addOnetask(coin){
+           		event.stopPropagation();
+           		var url=creatExecuteUrl(getCmdName(),'add',[coin]);
+                sendFixCmd(url,function(res){
+                    alert(res);
+                });
+           };
+
+           function removeTask(symbol){
+           		event.stopPropagation();
+           		var url=creatExecuteUrl(getCmdName(),'remove',[symbol]);
+                sendFixCmd(url,function(res){
+                    alert(res);
+                });
+           };
+
+
+           function nodeIsShow(id){
+                return document.getElementById(id).classList.contains('show');
+            };
+
+           function freshdata(){
+                if(nodeIsShow('tab-4')){
+                     freshTable();
+                    //test();
+                }else{
+                    if(nodeIsShow('tab-5')){
+                        freshPosition();
+                    }else{
+                        freshAccount();
+                    }
+                }
+            };
+
+            function freshTable(){
+                var url = creatExecuteUrl(getCmdName(),'all',[]);
+                sendFixCmd(url,showpos);
+                //test();
+            };
+
+            function test(){
+                var dd = {"data":[{"symbol":"PEPECOMMUNITY_USDT","size":"300","stop":"0.0001","closeorder":0,"state":4,"close":"0.00003","first":"0.00004","openorder":0,"coin":"pepecommunity","level":5,'status':'run'},
+{"symbol":"STPT_USDT","size":"20","stop":"0.0006","closeorder":0,"state":0,"close":"0.0003","first":"0.0002","openorder":0,"coin":"stpt","level":5,'status':'run'},
+{"symbol":"WSM_USDT","size":"30","stop":"0.001","closeorder":0,"state":4,"close":"0.0003","first":"0.0003","openorder":0,"coin":"wsm","level":5,'status':'stop'}]};
+                showpos(JSON.stringify(dd));
+            };
+
+            function getCmdName(){
+            	return 'auto-manager';
+            };
+
+            function sendFixCmd(cmd, fun){
+                var type = 'huobi';
+                var res = window.android.send(type,cmd);
+                fun(res);
+            };
+
+            function showpos(res){
+			    var data = eval("("+res+")").data;
+			    var node = document.getElementById('tab-4');
+			    cleanNodeHtml('tab-4');
+			    function addrow(obj){
+			        node.appendChild(createOneRow('newonerow',obj));   
+			    };
+
+			    for(x in data){
+			        var row = data[x];
+			        var canOpen = (row.state&4)==4;
+			        row.newstatus = row.status=='run'? (canOpen?'运行':'暂停'):'未启动';
+			        row.img = row.coin;
+			        if(row.status=='run'){
+						row.buttons = templateChange(canOpen?'runbutton':'stopbutton',row);
+			        }
+			        else{
+			        	row.buttons = templateChange('addbutton',row);
+			        }
+			        addrow(row);
+			    }
+			};
+
+           function createOneRow(id,obj){
+           		//var one = creatNode('a','list-group-item modify_dialog');
+           		var one = creatNode('div','border rounded-m');
+                //one.setAttribute('href','#');
+                //one.setAttribute('data-bs-toggle','offcanvas');
+                //one.setAttribute('data-bs-target','#modify_dialog');
+			    
+			    if(obj.status=='run'){
+			    	if((obj.state&4)==4){
+			    		one.setAttribute('style','overflow:hidden;margin-top:8px;background-color:#cde6c7');
+			    	}else{
+			    		one.setAttribute('style','overflow:hidden;margin-top:8px;background-color:#a0cecb');
+			    	}
+			    }else{
+			        one.setAttribute('style','overflow:hidden;margin-top:8px');
+			    }
+			    one.innerHTML = templateChange(id,obj);
+			    // var nodes = one.getElementsByTagName('a');
+			    // nodes[nodes.length-2].onclick=function(){
+			    //     event.stopPropagation();
+			    //     var run = (row.state&4)==4;
+			    //     var url=creatExecuteUrl(getCmdName(),run?'stopOpen':'startOpen',[obj.symbol]);
+	            //     sendFixCmd(url,function(res){
+	            //         alert(res);
+	            //     });
+			    // };
+			    // nodes[nodes.length-1].onclick=function(event){
+			    //     event.stopPropagation();
+				// 	var url=creatExecuteUrl(getCmdName(),'freshClose',[obj.symbol]);
+	            //     sendFixCmd(url,function(res){
+	            //         alert(res);
+	            //     });
+			    // };
+			    one.onclick = function(){  
+                    setNodeValue('modify_trade-name',obj.coin,true);
+                    setNodeValue('modify_trade-open',obj.first,false,'开仓浮动');   
+                    setNodeValue('modify_trade-close',obj.close,false,'平仓浮动');   
+                    setNodeValue('modify_trade-stop',obj.stop,false,'止损浮动');   
+                    setNodeValue('modify_trade-size',obj.size,false,'数量'); 
+                    setNodeValue('modify_trade-level',obj.level,false,'杠杆');
+                    document.getElementById('modify_button').onclick= function(){
+                    	modifyAction(obj);
+                    	hidderDialog('modify_dialog');
+                    };
+                    showDialog('modify_dialog');                
+                };
+			    return one;
+			};
+
+			function addAction(){
+				var coin = getNodeValue('modify_trade-name');
+				var open = getNodeValue('modify_trade-open');
+				var close = getNodeValue('modify_trade-close');
+				var stop = getNodeValue('modify_trade-stop');
+				var size = getNodeValue('modify_trade-size');
+				var level = getNodeValue('modify_trade-level');
+
+				function addMakr(v){
+					return "'"+v+"'";
+				};
+			    var sql = "insert into mxorder (COIN,OPEN,CLOSE,SIZE,STOP,LEVEL,STATUS,EXCHANGE) values ("+addMakr(coin)+","+
+			    addMakr(open)+","+addMakr(close)+","+addMakr(size)+","+addMakr(stop)+","+addMakr(level)+",'stop','biance')";
+			    var url=creatExecuteUrl('dao','runsql',[sql]);
+	                sendFixCmd(url,function(res){
+	                    alert(res);
+	                });
+			};
+
+
+			function modifyAction(obj){
+				var open = getNodeValue('modify_trade-open');
+				var sql = "update mxorder set ";
+				var change = false;
+				if(open != obj.first){
+					sql = sql + "open='"+open+"'";
+					change = true;
+				}
+				var close = getNodeValue('modify_trade-close');
+				if(close != obj.close){
+					sql = sql + (change?',':'') + "close='"+close+"'";
+					change = true;
+				}
+				var stop = getNodeValue('modify_trade-stop');
+				if(stop != obj.stop){
+					sql = sql +(change?',':'') + "stop='"+stop+"'";
+					change = true;
+				}
+				var size = getNodeValue('modify_trade-size');
+				if(size != obj.size){
+					sql = sql + (change?',':'') + "size='"+size+"'";
+					change = true;
+				}
+				var level = getNodeValue('modify_trade-level');
+				if(level != obj.level){
+					sql = sql +(change?',':'') + "level='"+level+"'";
+				}
+				if(change){
+					sql = sql +" where coin='"+obj.coin+"'";
+					var first = creatExecuteData('dao','runsql',[sql]);
+					var second = creatExecuteData(getCmdName(),'update',[obj.symbol]);
+					var url = createMutiUrl(first,second);
+	                sendFixCmd(url,function(res){
+	                	 alert(res);
+	                });
+				}
+				
+			};
+
+			function cmdChanged(){
+                var cmdNode = document.getElementById('c_cmd');
+                var index = cmdNode.selectedIndex
+                showIndexhelp(index);
+            };
+
+            function setNodeValue(id,data,disable,name){
+			    var node = document.getElementById(id);
+			    if(node){
+			        node.value = data;
+			        if(disable){
+			            node.setAttribute('disabled','disabled');
+			        }else{
+			            node.removeAttribute('disabled');
+			            var sn = node.nextElementSibling;
+			            if(sn && name){ 
+			            	if(data){
+								sn.innerHTML = name+' ('+data+')';
+			            	}else{
+			            		sn.innerHTML = name;
+			            	}
+			            	
+			            }
+			        }
+			        
+			    }
+			};
+
+            function showIndexhelp(index){
+                var data = allCmd[index].methods;
+                var selNode = document.getElementById('c_method');
+                var len = selNode.options;
+                while(selNode.options.length>0){
+                  selNode.options.remove(selNode.options.length-1);
+                }
+                for(x in data){
+                   selNode.options.add(new Option(data[x].desc+'('+data[x].para+')',data[x].name));
+                }
+            };
+
+            function showHelp(){
+               var cmdNode = document.getElementById('c_cmd');
+               var len = cmdNode.options;
+               while(cmdNode.options.length>0){
+                  cmdNode.options.remove(cmdNode.options.length-1);
+               }
+               var url=creatExecuteUrl('cmdcenter','getAllCmdHelp');
+               sendFixCmd(url,function(res){
+                    allCmd = eval("("+res+")").data;
+                    var size = allCmd.length;
+                    for(var i = 0;i<size;i++){
+                       cmdNode.options.add(new Option(allCmd[i].desc,allCmd[i].name));
+                    }
+                    showIndexhelp(0);
+                });
+            };
+
+
+            function runCmd(){
+                var cmdName = document.getElementById('c_cmd').value;
+                var method = document.getElementById('c_method').value;
+                var para = document.getElementById('c_para').value;
+                var url=creatExecuteUrl(cmdName,method,para.split(','));
+                sendFixCmd(url,function(res){
+                    alert(res);
+                });
+            };
+        </script>
+	</body>
+</html>
+
+
