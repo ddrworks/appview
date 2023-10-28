@@ -1,0 +1,532 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+ 
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover">
+		<title>PayApp - Finance, Banking, Wallet, Crypto Mobile PWA</title>
+		<link rel="stylesheet" type="text/css" href="static/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="static/css/bootstrap-icons.css">
+		<link rel="stylesheet" type="text/css" href="static/css/style.css">
+
+		<link href="static/css/css2.css" rel="stylesheet">
+
+		<meta id="theme-check" name="theme-color" content="#FFFFFF">
+	</head>
+	<body class="theme-light">
+		<div id="preloader"><div class="spinner-border color-highlight" role="status"></div></div>
+
+		<div id="page">
+			<div id="footer-bar" class="footer-bar-1 footer-bar-detached">
+				<a href="javascript:freshTable();"><i class="bi bi-arrow-clockwise"></i><span>刷新</span></a>
+				<a href="mx.html"><i class="bi bi-graph-up"></i><span>mx</span></a>
+				<a href="index.html" class="circle-nav-2"><i class="bi bi-house-fill"></i><span>合约</span></a>
+				<a href="biance.html"><i class="bi bi-cloud-minus"></i><span>币安</span></a>
+				<a href="exchange.html"><i class="bi bi-receipt"></i><span>网格</span></a>
+			</div>
+
+			<div class="page-content footer-clear">
+				<div class="pt-3">
+					<div class="page-title d-flex">
+						<div class="align-self-center me-auto">
+							<p class="color-highlight header-date"></p>
+							<h1>合约套利策略</h1>
+						</div>
+						<div class="align-self-center ms-auto">
+							<a href="#" data-bs-toggle="dropdown" class="icon gradient-blue shadow-bg shadow-bg-s rounded-m">
+								<img src="static/picture/8s.jpg" width="45" class="rounded-m" alt="img">
+							</a>
+
+							<div class="dropdown-menu">
+								<div class="card card-style shadow-m mt-1 me-1">
+									<div class="list-group list-custom list-group-s list-group-flush rounded-xs px-3 py-1">
+										<a href="javascript:void(0);" onclick="setRoute('gate')" class="list-group-item">
+											<i class="has-bg gradient-green shadow-bg shadow-bg-xs color-white rounded-xs bi bi-credit-card"></i>
+											<strong class="font-13">Gate</strong>
+										</a>
+										<a href="javascript:void(0);" onclick="setRoute('kucoin')" class="list-group-item">
+											<i class="has-bg gradient-blue shadow-bg shadow-bg-xs color-white rounded-xs bi bi-graph-up"></i>
+											<strong class="font-13">Mx</strong>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+               	<div class="card card-style bg-7 shadow-card shadow-card-m" style="height:190px">
+					<div class="card-center">
+						<div class="px-3 py-2 rounded-end d-inline-block">
+							<div>
+								<span class="font-monospace d-block mb-n2 opacity-60 color-yellow-light">Gate</span>
+								<span id="gateusdt" class="font-monospace color-white font-20 ms-2">--</span>
+							</div>
+							<div>
+								<span class="font-monospace d-block mb-n2 opacity-60 color-yellow-light">币安</span>
+								<span id="bianusdt" class="font-monospace color-white font-20 ms-2">--</span>
+							</div>
+						</div>
+					</div>
+					<strong class="card-top no-click font-12 p-3 color-white font-monospace">账户</strong>
+					<div class="card-overlay bg-black opacity-50"></div>
+				</div>
+
+
+				<div class="content">
+					<div class="row">
+						<div class="col-6">
+							<a href="#" data-bs-toggle="offcanvas" data-bs-target="#modify_dialog" class="btn btn-full gradient-highlight rounded-s shadow-bg shadow-bg-s">添加</a>
+						</div>
+						<div class="col-6">
+							<a href="#" data-bs-toggle="offcanvas" data-bs-target="#cmd-dialog" class="btn btn-full gradient-green rounded-s shadow-bg shadow-bg-s">命令</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="card card-style my-2">
+					<div class="content">
+						<div class="tabs tabs-pill" id="tab-group-2">
+							<div class="tab-controls rounded-m p-1 overflow-visible">
+								<a class="font-13 rounded-m shadow-bg shadow-bg-s" data-bs-toggle="collapse" href="#tab-4" aria-expanded="true">交易对</a>
+								<a class="font-13 rounded-m shadow-bg shadow-bg-s" data-bs-toggle="collapse" href="#tab-6" aria-expanded="false">成交记录</a>
+								<a class="font-13 rounded-m shadow-bg shadow-bg-s" data-bs-toggle="collapse" href="#tab-5" aria-expanded="false">仓位</a>
+								<a class="font-13 rounded-m shadow-bg shadow-bg-s" data-bs-toggle="collapse" href="#tab-7" aria-expanded="false">账户</a>
+							</div>
+							<div class="mt-3"></div>
+							<div class="collapse show" id="tab-4" data-bs-parent="#tab-group-2">
+							</div>
+							<div class="collapse" id="tab-6" data-bs-parent="#tab-group-2">
+							</div>
+							<div class="collapse" id="tab-5" data-bs-parent="#tab-group-2">
+							</div>
+							<div class="collapse" id="tab-7" data-bs-parent="#tab-group-2">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div id="modify_dialog" class="offcanvas offcanvas-bottom offcanvas-detached rounded-m">
+			<div class="menu-size" style="height:670px;">
+				<div class="content">
+					<div class="row">
+						<div class="form-custom form-label form-icon">
+							<i class="bi bi-clipboard font-14"></i>
+							<input type="text" class="form-control rounded-xs" id="modify_trade-name">
+							<label for="trade-name" class="form-label-always-active color-highlight font-11">交易对名称*</label>
+						</div>
+						<div class="pb-2"></div>
+						<div class="form-custom form-label form-icon">
+							<i class="bi bi-bookshelf font-14"></i>
+							<input type="number" class="form-control rounded-xs" id="modify_trade-level">
+							<label for="trade-level" class="form-label-always-active color-highlight font-11">杠杆*</label>
+						</div>
+						<div class="pb-2"></div>
+						<div class="form-custom form-label form-icon">
+							<i class="bi bi-start font-14"></i>
+							<input type="number" class="form-control rounded-xs" id="modify_trade-quantity">
+							<label for="trade-quantity" class="form-label-always-active color-highlight font-11">数量*</label>
+						</div>
+						<div class="pb-2"></div>
+						<div class="form-custom form-label form-icon">
+							<i class="bi bi-suit-club font-14"></i>
+							<input type="number" class="form-control rounded-xs" id="modify_trade-opennum">
+							<label for="trade-opennum" class="form-label-always-active color-highlight font-11">最大开仓数*</label>
+						</div>
+						<div class="pb-2"></div>
+						<div class="form-custom form-label form-icon">
+							<i class="bi bi-tag font-14"></i>
+							<input type="number" class="form-control rounded-xs" id="modify_trade-openper">
+							<label for="trade-openper" class="form-label-always-active color-highlight font-11">开单价差比例*</label>
+						</div>
+						<div class="pb-2"></div>
+						<div class="form-custom form-label form-icon">
+							<i class="bi bi-tag-fill font-14"></i>
+							<input type="number" class="form-control rounded-xs" id="modify_trade-closeper">
+							<label for="trade-closeper" class="form-label-always-active color-highlight font-11">平单价差比例*</label>
+						</div>
+						<div class="pb-2"></div>
+						<div class="form-custom form-label form-icon">
+							<i class="bi bi-subtract font-14"></i>
+							<input type="text" class="form-control rounded-xs" id="modify_trade-bianname">
+							<label for="trade-bianname" class="form-label-always-active color-highlight font-11">币安名称</label>
+						</div>
+						<div class="pb-2"></div>
+						<div class="form-custom form-label form-icon">
+							<i class="bi bi-suit-heart font-14"></i>
+							<input type="number" class="form-control rounded-xs" id="modify_trade-multi">
+							<label for="trade-multi" class="form-label-always-active color-highlight font-11">数量乘数</label>
+						</div>
+						<div class="col-12">
+							<a href="javascript:void(0);" onclick="modifyCoin()" class="btn btn-s btn-full gradient-blue shadow-bg shadow-bg-xs">修改</a>
+						</div>
+						<div class="pb-2"></div>
+						<div class="col-12">
+							<a href="#" data-bs-dismiss="offcanvas" class="btn btn-s btn-full gradient-green shadow-bg shadow-bg-xs">返回</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div id="modify_percent_dialog" class="offcanvas offcanvas-bottom offcanvas-detached rounded-m">
+			<div class="menu-size" style="height:260px;">
+				<div class="content">
+					<div class="row">
+						<div class="form-custom form-label form-icon">
+							<i class="bi bi-tag font-14"></i>
+							<input type="number" class="form-control rounded-xs" id="modifyP_trade-openper">
+							<label for="trade-openper" class="form-label-always-active color-highlight font-11">开单价差比例</label>
+						</div>
+						<div class="pb-2"></div>
+						<div class="form-custom form-label form-icon">
+							<i class="bi bi-tag-fill font-14"></i>
+							<input type="number" class="form-control rounded-xs" id="modifyP_trade-closeper">
+							<label for="trade-closeper" class="form-label-always-active color-highlight font-11">平单价差比例</label>
+						</div>
+						<div class="col-12">
+							<a href="javascript:void(0);" class="btn btn-s btn-full gradient-blue shadow-bg shadow-bg-xs">修改</a>
+						</div>
+						<div class="pb-2"></div>
+						<div class="col-12">
+							<a href="#" data-bs-dismiss="offcanvas" class="btn btn-s btn-full gradient-green shadow-bg shadow-bg-xs">返回</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div id="trade_detail" class="offcanvas offcanvas-bottom offcanvas-detached rounded-m">
+			<div class="menu-size" style="height:400px;">
+				<div class="content">
+					<div class="row">
+						<strong class="col-5 color-theme">交易对</strong>
+						<strong class="col-7 text-end" id='trade-name'></strong>
+						<div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>
+						<strong class="col-5 color-theme">杠杆</strong>
+						<strong class="col-7 text-end" id='trade-level'></strong>
+						<div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>
+						<strong class="col-5 color-theme">数量</strong>
+						<strong class="col-7 text-end" id='trade-quantity'></strong>
+						<div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>
+						<strong class="col-5 color-theme">最大开仓数</strong>
+						<strong class="col-7 text-end" id='trade-opennum'></strong>
+						<div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>
+						<strong class="col-5 color-theme">开单价差比例</strong>
+						<strong class="col-7 text-end" id='trade-openper'></strong>
+						<div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>
+						<strong class="col-5 color-theme">平单价差比例</strong>
+						<strong class="col-7 text-end" id='trade-closeper'></strong>
+						<div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>
+						<strong class="col-5 color-theme">币安名称</strong>
+						<strong class="col-7 text-end" id='trade-bianname'></strong>
+						<div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>
+						<strong class="col-5 color-theme">数量乘数</strong>
+						<strong class="col-7 text-end" id='trade-multi'></strong>
+						<div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>
+						<div class="col-12">
+							<a href="#" data-bs-dismiss="offcanvas" class="btn btn-s btn-full gradient-green shadow-bg shadow-bg-xs">返回</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="cmd-dialog" class="offcanvas offcanvas-bottom offcanvas-detached rounded-m">
+			<div class="menu-size" style="height:190px;">
+				<div class="d-flex mx-3 mt-3 py-1">
+	                    <div class="align-self-center">
+	                        <h4 class="mb-0">命令</h4>
+	                    </div>
+	                    <div class="align-self-center ms-auto">
+	                        <a href="#" class="ps-4 shadow-0 me-n2" data-bs-dismiss="offcanvas">
+	                            <i class="bi bi-x color-red-dark font-26 line-height-xl"></i>
+	                        </a>
+	                    </div>
+                	</div>
+				<div class="content">
+					<div class="form-custom form-label form-icon">
+						<i class="bi bi-terminal font-14"></i>
+						<input type="text" class="form-control rounded-xs" id="user_cmd">
+						<label for="user_cmd" class="form-label-always-active color-highlight font-11">执行命令</label>
+					</div>
+					<a href="javascript:void(0);" onclick="runUserCmd()" class="btn btn-s btn-full gradient-green shadow-bg shadow-bg-xs">确定</a>
+				</div>
+			</div>
+		</div>
+
+		<div id="close-limit-dialog" class="offcanvas offcanvas-bottom offcanvas-detached rounded-m">
+			<div class="menu-size" style="height:250px;">
+				<div class="d-flex mx-3 mt-3 py-1">
+	                    <div class="align-self-center">
+	                        <h4 class="mb-0">限价止盈</h4>
+	                    </div>
+	                    <div class="align-self-center ms-auto">
+	                        <a href="#" class="ps-4 shadow-0 me-n2" data-bs-dismiss="offcanvas">
+	                            <i class="bi bi-x color-red-dark font-26 line-height-xl"></i>
+	                        </a>
+	                    </div>
+                	</div>
+				<div class="content">
+					<div class="form-custom form-label form-icon">
+						<i class="bi bi-terminal font-14"></i>
+						<input type="number" class="form-control rounded-xs" id="limit_size">
+						<label for="limit_size" class="form-label-always-active color-highlight font-11">数量</label>
+					</div>
+					<div class="form-custom form-label form-icon">
+						<i class="bi bi-terminal font-14"></i>
+						<input type="number" class="form-control rounded-xs" id="limit_price">
+						<label for="limit_price" class="form-label-always-active color-highlight font-11">价格</label>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<a href="javascript:void(0);" id='limit_bu' class="btn btn-s btn-full gradient-green shadow-bg shadow-bg-xs">确定</a>
+						</div>
+						<div class="col-6">
+							<a href="#" data-bs-dismiss="offcanvas" class="btn btn-s btn-full gradient-blue shadow-bg shadow-bg-xs">返回</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div id="close-market-dialog" class="offcanvas offcanvas-bottom offcanvas-detached rounded-m">
+			<div class="menu-size" style="height:220px;">
+				<div class="d-flex mx-3 mt-3 py-1">
+	                    <div class="align-self-center">
+	                        <h4 class="mb-0">市价止盈</h4>
+	                    </div>
+	                    <div class="align-self-center ms-auto">
+	                        <a href="#" class="ps-4 shadow-0 me-n2" data-bs-dismiss="offcanvas">
+	                            <i class="bi bi-x color-red-dark font-26 line-height-xl"></i>
+	                        </a>
+	                    </div>
+                	</div>
+				<div class="content">
+					<div class="form-custom form-label form-icon">
+						<i class="bi bi-terminal font-14"></i>
+						<input type="number" class="form-control rounded-xs" id="market_size">
+						<label for="market_size" class="form-label-always-active color-highlight font-11">数量</label>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<a href="javascript:void(0);" id='market_bu' class="btn btn-s btn-full gradient-green shadow-bg shadow-bg-xs">确定</a>
+						</div>
+						<div class="col-6">
+							<a href="#" data-bs-dismiss="offcanvas" class="btn btn-s btn-full gradient-blue shadow-bg shadow-bg-xs">返回</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="confirm-dialog" class="offcanvas offcanvas-bottom offcanvas-detached rounded-m">
+			<div class="menu-size" style="height:160px;">
+				<div class="d-flex mx-3 mt-3 py-1">
+                    <div class="align-self-center">
+                        <h4 class="mb-0">确认</h4>
+                    </div>
+                </div>
+				<div class="content">
+					<div class="row">
+						<div class="='col-12'">
+							<strong class="col-5 color-theme" id='confirmContent'></strong>
+						</div>
+						<div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>
+						<div class="col-6">
+							<a href="javascript:void(0);" id="alertActionButton" class="btn btn-s btn-full gradient-blue shadow-bg shadow-bg-xs">确定</a>
+						</div>
+						<div class="col-6">
+							<a href="#" data-bs-dismiss="offcanvas" class="btn btn-s btn-full gradient-blue shadow-bg shadow-bg-xs">返回</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="alter-dialog" class="offcanvas offcanvas-bottom offcanvas-detached rounded-m">
+			<div class="menu-size" style="height:180px;">
+				<div class="d-flex mx-3 mt-3 py-1">
+                    <div class="align-self-center">
+                        <h4 class="mb-0">提示</h4>
+                    </div>
+                </div>
+				<div class="content">
+					<div class="row">
+						<div class="='col-12'">
+							<strong class="col-5 color-theme" id='alter-content'></strong>
+						</div>
+						<div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>
+						<div class="col-12">
+							<a href="#" data-bs-dismiss="offcanvas" class="btn btn-s btn-full gradient-blue shadow-bg shadow-bg-xs">返回</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="hisDetail" class="offcanvas offcanvas-bottom offcanvas-detached rounded-m">
+			<div class="menu-size" style="height:330px;">
+				<div class="content">
+					<div class="row">
+						<strong class="col-5 color-theme">交易对</strong>
+						<strong class="col-7 text-end" id='detail-coin'></strong>
+						<div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>
+						<strong class="col-5 color-theme">方向</strong>
+						<strong class="col-7 text-end" id='detail-pos'></strong>
+						<div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>
+						<strong class="col-5 color-theme">数量</strong>
+						<strong class="col-7 text-end" id='detail-size'></strong>
+						<div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>
+						<strong class="col-5 color-theme">Gate价格</strong>
+						<strong class="col-7 text-end" id='detail-gateprice'></strong>
+						<div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>
+						<strong class="col-5 color-theme">币安价格</strong>
+						<strong class="col-7 text-end" id='detail-bianprice'></strong>
+						<div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>
+						<strong class="col-5 color-theme">时间</strong>
+						<strong class="col-7 text-end" id='detail-time'></strong>
+						<div class="col-12 mt-2 mb-2"><div class="divider my-0"></div></div>
+						<div class="col-12">
+							<a href="#" data-bs-dismiss="offcanvas" class="btn btn-s btn-full gradient-green shadow-bg shadow-bg-xs">返回</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="static/js/bootstrap.min.js"></script>
+		<script src="static/js/custom3.js"></script>
+		<script src="static/js/common.js"></script>
+		<script src="static/js/future.js"></script>
+
+		<script type="text/html" id="onerow">
+			<div class="align-self-center">
+				<img src="static/picture/{{img}}.png" onerror="this.src = 'static/picture/btc.png'" width="45" class="rounded-m" alt="img">
+			</div>
+			<div class="align-self-center ps-1">
+				<h4 class="pt-1 mb-n1 color-{{color}}-dark">{{coin}}</h4>
+				<p class="mb-0 font-11 opacity-50">{{status}}杠杆:{{level}} 开仓数:{{size}}</p>
+			</div>
+			<div class="align-self-center ms-auto text-end">
+				<h5 class="pt-1 mb-n1 color-{{color}}-dark">{{mod}}</h5>
+				<p class="mb-0 font-11 color-{{color}}-dark">{{op}}/{{ep}}</p>
+			</div>
+		</script>
+
+		<script type="text/html" id="hisrow">
+			<div class="align-self-center">
+				<img src="static/picture/{{img}}.png" onerror="this.src = 'static/picture/btc.png'" width="45" class="rounded-m" alt="img">
+			</div>
+			<div class="align-self-center ps-1">
+				<h4 class="pt-1 mb-n1 color-blue-dark">{{coin}}</h4>
+				<p class="mb-0 font-11 opacity-50">{{time}}</p>
+			</div>
+			<div class="align-self-center ms-auto text-end">
+				<h5 class="pt-1 mb-n1 color-{{color}}-dark">{{percent}}</h5>
+				<p class="mb-0 font-11 color-{{color}}-dark">{{size}}</p>
+			</div>
+		</script>
+		<script type="text/html" id="posrow">
+			<div class="d-flex py-1 ms-1 me-1">
+				<div class="align-self-center">
+					<img src="static/picture/{{img}}.png" onerror="this.src = 'static/picture/btc.png'" width="45" class="rounded-m" alt="img">
+				</div>
+				<div class="align-self-center ps-1">
+					<h4 class="pt-1 mb-n1 color-blue-dark">{{coin}}</h4>
+					<p class="mb-0 font-11 opacity-50">{{exchage}}</p>
+				</div>
+				<div class="align-self-center ms-auto text-end">
+					<h5 class="pt-1 mb-n1 color-{{color}}-dark">({{side}}){{size}}</h5>
+					<p class="mb-0 font-11 color-{{color}}-dark">{{price}}</p>
+				</div>
+			</div>
+			<div class="row text-center bg-light" style="--bs-gutter-x:2rem;">
+				<div class="col border-end">
+					<a href="javascript:void(0);" class='text-black'>市价止盈</a>
+				</div>
+				<div class="col bg-light">
+					<a href="javascript:void(0);" class='text-black'>限价止盈</a>
+				</div>
+			</div>
+		</script>
+		<script type="text/html" id="accountrow">
+			<div class="align-self-center ps-1">
+				<h3 class="pt-1 mb-n1 color-blue-dark">总计</h3>
+				<p class="mb-0 font-11 color-blue-dark">{{gate}}/{{bian}}</p>
+			</div>
+			<div class="align-self-center ms-auto text-end">
+				<h3 class="pt-1 mb-n1 color-blue-dark">{{total}}</h3>
+				<p class="mb-0 font-11 color-blue-dark">{{time}}</p>
+			</div>
+		</script>
+
+		<script type="text/html" id="newonerow">
+			<div class="content mt-1 mb-0">
+				<div class='d-flex'>
+					<div class="align-self-center">
+						<img src="static/picture/{{img}}.png" onerror="this.src = 'static/picture/btc.png'" width="45" class="rounded-m" alt="img">
+					</div>
+					<div class="align-self-center ms-auto text-end">
+						<h5 class="pt-1 mb-n1 color-{{color}}-dark">{{coin}}</h5>
+						<p class="mb-0 font-11 opacity-70 color-{{color}}-dark">{{status}}</p>
+					</div>
+				</div>
+				<div class="row" style="--bs-gutter-x:2rem;">
+					<div class="col d-grid text-center">
+						<strong class="color-theme">杠杆/数量</strong>
+						<span>{{level}}</span>
+						<span>{{size}}</span>
+					</div>
+					<div class="col d-grid text-center">
+						<strong class="color-theme">开/平比例</strong>
+						<span>{{op}}</span>
+						<span>{{ep}}</span>
+					</div>
+					<div class="col d-grid text-center">
+						<strong class="color-theme">多/空</strong>
+						<span>{{ls}}</span>
+						<span>{{ss}}</span>
+					</div>
+				</div>
+				<div class="row text-center bg-light" style="--bs-gutter-x:2rem;">
+					{{buttons}}
+				</div>
+			</div>
+		</script>
+
+		<script type="text/html" id="runbutton">
+			<div class="col border-end">
+				<a href="javascript:void(0);" class='text-black'>停止</a>
+			</div>
+			<div class="col bg-light">
+				<a href="javascript:void(0);" class='text-black'>修改</a>
+			</div>
+		</script>
+		<script type="text/html" id="stopbutton">
+			<div class="col border-end">
+				<a href="javascript:void(0);" class='text-black'>启动</a>
+			</div>
+			<div class="col">
+				<a href="javascript:void(0);" class='text-black'>修改</a>
+			</div>
+		</script>
+                <script>
+                   golbroute='gate';
+
+                   function setRoute(target){
+                   	golbroute = target
+                   };
+
+                </script>
+	</body>
+</html>
+
